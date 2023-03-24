@@ -32,4 +32,5 @@ Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
 
 Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard'], function () {
     Route::post('login', [DashboardController::class, 'signIn']);
+    Route::post('check_login', [DashboardController::class, 'checkLogin']);
 });

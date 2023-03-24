@@ -32,4 +32,20 @@ class DashboardBusinessLayer extends GenericBusinessLayer
         }
         return $response->getResponse();
     }
+
+    public function checkLogin(UsersDTO $params)
+    {
+        try {
+            $rememberToken = $params->getRememberToken();
+            $tokenData = User::where('remember_token', $rememberToken)->first();
+            if ($tokenData) {
+                $response = new ResponseCreatorPresentationLayer(200, 'Authorized', $tokenData);
+            } else {
+                $response = new ResponseCreatorPresentationLayer(401, 'Unauthorized', null);
+            }
+        } catch (\Exception $e) {
+            $response = new ResponseCreatorPresentationLayer(500, 'Internal Server Error', $e);
+        }
+        return $response->getResponse();
+    }
 }
