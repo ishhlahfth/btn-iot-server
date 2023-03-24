@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\BusinessLayer\DashboardBusinessLayer;
+use App\DTO\DeviceDTO;
 use App\DTO\UsersDTO;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -27,6 +28,13 @@ class DashboardController extends Controller
         $params = new UsersDTO();
         $params->setRememberToken($request->input('remember_token'));
         $result = $this->dashboardBusinessLayer->checkLogin($params);
+        return response()->json($result, $result['code']);
+    }
+    public function fetchData(Request $request)
+    {
+        $params = new DeviceDTO();
+        $params->setMac($request->input('mac'));
+        $result = $this->dashboardBusinessLayer->fetchData($params);
         return response()->json($result, $result['code']);
     }
 }
