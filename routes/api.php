@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DeviceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +23,12 @@ Route::group(['prefix' => 'device', 'namespace' => 'Device'], function () {
     Route::post('init', [DeviceController::class, 'deviceInit']);
     Route::post('log', [DeviceController::class, 'deviceLogs']);
     Route::post('create', [DeviceController::class, 'createDevice']);
+});
+
+Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
+    Route::post('create', [UsersController::class, 'createUser']);
+});
+
+Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard'], function () {
+    Route::post('login', [DashboardController::class, 'signIn']);
 });

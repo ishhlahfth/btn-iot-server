@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\BusinessLayer\DashboardBusinessLayer;
+use App\DTO\UsersDTO;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    private $dashboardBusinessLayer;
+    public function __construct()
+    {
+        $this->dashboardBusinessLayer = new DashboardBusinessLayer;
+    }
+    public function signIn(Request $request)
+    {
+        $params = new UsersDTO();
+        $params->setEmail($request->input('email'));
+        $params->setPassword($request->input('password'));
+        $result = $this->dashboardBusinessLayer->signIn($params);
+        return response()->json($result, $result['code']);
+    }
+    public function checkLogin(Request $request)
+    {
+        $params = new UsersDTO();
+        $params->setRememberToken($request->input('remember_token'));
+        $result = $this->dashboardBusinessLayer->checkLogin($params);
+        return response()->json($result, $result['code']);
+    }
+}
