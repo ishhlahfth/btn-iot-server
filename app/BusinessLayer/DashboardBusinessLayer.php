@@ -56,6 +56,7 @@ class DashboardBusinessLayer extends GenericBusinessLayer
         try {
             $mac = $params->getMac();
             $deviceData = Device::where('mac', $mac)->first();
+            $deviceData->fetchTime = date('Y-m-d H:i:s');
             if ($deviceData) {
                 $response = new ResponseCreatorPresentationLayer(200, 'Successfully Fetched', $deviceData);
             } else {
