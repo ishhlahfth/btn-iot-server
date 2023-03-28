@@ -102,7 +102,7 @@ class DeviceBusinessLayer extends GenericBusinessLayer
                             $deviceData->valveStatus = $valveStatus;
                         }
                     }
-                    if (!$deviceData->rainIntensity == 1) {
+                    if ($rainIntensity == 1) {
                         $valveStatus = '0|0';
                         $deviceData->valveStatus = $valveStatus;
                     }
