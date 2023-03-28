@@ -34,4 +34,5 @@ Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard'], function () 
     Route::post('login', [DashboardController::class, 'signIn']);
     Route::post('check_login', [DashboardController::class, 'checkLogin']);
     Route::post('fetch_data', [DashboardController::class, 'fetchData']);
+    Route::post('update_device', [DashboardController::class, 'updateDevice']);
 });

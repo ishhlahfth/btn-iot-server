@@ -37,4 +37,14 @@ class DashboardController extends Controller
         $result = $this->dashboardBusinessLayer->fetchData($params);
         return response()->json($result, $result['code']);
     }
+    public function updateDevice(Request $request)
+    {
+        $params = new DeviceDTO();
+        $params->setMac($request->input('mac'));
+        $params->setSecret($request->input('secret'));
+        $params->setSensorValue($request->input('sensor_value'));
+        $params->setIsManual($request->input('is_manual'));
+        $result = $this->dashboardBusinessLayer->updateDevice($params);
+        return response()->json($result, $result['code']);
+    }
 }

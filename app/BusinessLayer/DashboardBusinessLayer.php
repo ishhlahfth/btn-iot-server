@@ -66,4 +66,31 @@ class DashboardBusinessLayer extends GenericBusinessLayer
         }
         return $response->getResponse();
     }
+    public function updateDevice(DeviceDTO $params)
+    {
+        try {
+            $mac = $params->getMac();
+            $valveStatus = $params->getValveStatus();
+            $isManual = $params->getIsManual();
+            $deviceData = Device::where('mac', $mac)->first();
+            if ($deviceData != null) {
+                if ($isManual != null) {
+                    $deviceData->isManual = $isManual;
+                }
+                if ($valveStatus != null) {
+                    $deviceData->valveStatus = $valveStatus;
+                }
+                if ($deviceData->save()) {
+                    $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated and logged!', $deviceData);
+                } else {
+                    $response = new ResponseCreatorPresentationLayer(400, 'Failed to Update', $deviceData);
+                }
+            } else {
+                $response = new ResponseCreatorPresentationLayer(404, 'Device not registered', null);
+            }
+        } catch (\Exception $e) {
+            $response = new ResponseCreatorPresentationLayer(500, 'Internal Server Error', $e);
+        }
+        return $response->getResponse();
+    }
 }
