@@ -86,17 +86,23 @@ class DeviceBusinessLayer extends GenericBusinessLayer
             $mac = $params->getMac();
             $secret = $params->getSecret();
             $sensorValue = $params->getSensorValue();
-            $valveStatus = $params->getValveStatus();
             $rainIntensity = $params->getRainIntensity();
             $lastActive = date('Y-m-d H:i:s');
             $deviceData = Device::where('mac', $mac)->first();
             if ($deviceData != null) {
                 if ($deviceData->secret  == $secret) {
                     $deviceData->sensorValue = $sensorValue;
-                    $deviceData->valveStatus = $valveStatus;
+                    if (!$deviceData->isManual) {
+                        if ($sensorValue == 1) {
+                            $deviceData->valveStatus = '1|1';
+                        } else {
+                            $deviceData->valveStatus = '0|0';
+                        }
+                    }
                     $deviceData->rainIntensity = $rainIntensity;
                     $deviceData->lastActive = $lastActive;
                     $deviceData->lastUpdate = $lastActive;
+
                     if ($deviceData->save()) {
                         $logsData = [
                             'mac' => $mac,
