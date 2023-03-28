@@ -41,8 +41,7 @@ class DashboardController extends Controller
     {
         $params = new DeviceDTO();
         $params->setMac($request->input('mac'));
-        $params->setSecret($request->input('secret'));
-        $params->setSensorValue($request->input('sensor_value'));
+        $params->setValveStatus($request->input('valve_status'));
         $params->setIsManual($request->input('is_manual'));
         $result = $this->dashboardBusinessLayer->updateDevice($params);
         return response()->json($result, $result['code']);

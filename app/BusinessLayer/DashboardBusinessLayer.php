@@ -81,7 +81,7 @@ class DashboardBusinessLayer extends GenericBusinessLayer
                     $deviceData->valveStatus = $valveStatus;
                 }
                 if ($deviceData->save()) {
-                    $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated and logged!', $deviceData);
+                    $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated', $deviceData);
                 } else {
                     $response = new ResponseCreatorPresentationLayer(400, 'Failed to Update', $deviceData);
                 }
