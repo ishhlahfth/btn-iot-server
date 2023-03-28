@@ -71,7 +71,7 @@ class DashboardBusinessLayer extends GenericBusinessLayer
         try {
             $mac = $params->getMac();
             $valveStatus = $params->getValveStatus();
-            $isManual = $params->getIsManual();
+            (bool)$isManual = $params->getIsManual();
             $deviceData = Device::where('mac', $mac)->first();
             if ($deviceData != null) {
                 if ($isManual != null) {
