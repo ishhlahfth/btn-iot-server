@@ -85,6 +85,7 @@ class DeviceBusinessLayer extends GenericBusinessLayer
         try {
             $mac = $params->getMac();
             $secret = $params->getSecret();
+            $valveStatus = "";
             $sensorValue = $params->getSensorValue();
             $rainIntensity = $params->getRainIntensity();
             $lastActive = date('Y-m-d H:i:s');
@@ -94,9 +95,9 @@ class DeviceBusinessLayer extends GenericBusinessLayer
                     $deviceData->sensorValue = $sensorValue;
                     if (!$deviceData->isManual) {
                         if ($sensorValue == 1) {
-                            $deviceData->valveStatus = '1|1';
+                            $valveStatus = '1|1';
                         } else {
-                            $deviceData->valveStatus = '0|0';
+                            $valveStatus = '0|0';
                         }
                     }
                     $deviceData->rainIntensity = $rainIntensity;
@@ -107,7 +108,7 @@ class DeviceBusinessLayer extends GenericBusinessLayer
                         $logsData = [
                             'mac' => $mac,
                             'sensorValue' => $sensorValue,
-                            'valveStatus' => $valveStatus,
+                            'valveStatus' => $deviceData->valveStatus,
                             'rainIntensity' => $params->getRainIntensity(),
                         ];
                         if (Logs::create($logsData)) {
