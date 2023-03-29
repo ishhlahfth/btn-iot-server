@@ -94,34 +94,35 @@ class DeviceBusinessLayer extends GenericBusinessLayer
                 if ($deviceData->secret  == $secret) {
                     $deviceData->sensorValue = $sensorValue;
                     if (!$deviceData->isManual) {
-                        if ($sensorValue == 1) {
+                        if ($sensorValue == '1') {
                             $valveStatus = '0|0';
                             $deviceData->valveStatus = $valveStatus;
                         } else {
                             $valveStatus = '1|1';
                             $deviceData->valveStatus = $valveStatus;
                         }
-                    }
-                    if ($rainIntensity == '1') {
-                        $valveStatus = '0|0';
-                        $deviceData->valveStatus = $valveStatus;
+                        if ($rainIntensity == '1') {
+                            $valveStatus = '0|0';
+                            $deviceData->valveStatus = $valveStatus;
+                        }
                     }
                     $deviceData->rainIntensity = $rainIntensity;
                     $deviceData->lastActive = $lastActive;
                     $deviceData->lastUpdate = $lastActive;
 
                     if ($deviceData->save()) {
-                        $logsData = [
-                            'mac' => $mac,
-                            'sensorValue' => $sensorValue,
-                            'valveStatus' => $deviceData->valveStatus,
-                            'rainIntensity' => $params->getRainIntensity(),
-                        ];
-                        if (Logs::create($logsData)) {
-                            $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated and logged!', $deviceData);
-                        } else {
-                            $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated only!', $deviceData);
-                        }
+                        // $logsData = [
+                        //     'mac' => $mac,
+                        //     'sensorValue' => $sensorValue,
+                        //     'valveStatus' => $deviceData->valveStatus,
+                        //     'rainIntensity' => $params->getRainIntensity(),
+                        // ];
+                        // if (Logs::create($logsData)) {
+                        //     $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated and logged!', $deviceData);
+                        // } else {
+                        //     $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated only!', $deviceData);
+                        // }
+                        $response = new ResponseCreatorPresentationLayer(200, 'Successfully Updated!', $deviceData);
                     } else {
                         $response = new ResponseCreatorPresentationLayer(400, 'Failed to Update', $deviceData);
                     }
