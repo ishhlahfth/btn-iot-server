@@ -47,7 +47,6 @@ class DeviceController extends Controller
         $params->setMac($request->input('mac'));
         $params->setSecret($request->input('secret'));
         $params->setSensorValue($request->input('sensor_value'));
-        $params->setValveStatus($request->input('valve_status'));
         $params->setRainIntensity($request->input('rain_intensity'));
 
         $result = $this->deviceBusinessLayer->updateDeviceInfo($params);
