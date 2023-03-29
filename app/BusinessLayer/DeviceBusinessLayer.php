@@ -95,14 +95,14 @@ class DeviceBusinessLayer extends GenericBusinessLayer
                     $deviceData->sensorValue = $sensorValue;
                     if (!$deviceData->isManual) {
                         if ($sensorValue == 1) {
-                            $valveStatus = '1|1';
+                            $valveStatus = '0|0';
                             $deviceData->valveStatus = $valveStatus;
                         } else {
-                            $valveStatus = '0|0';
+                            $valveStatus = '1|1';
                             $deviceData->valveStatus = $valveStatus;
                         }
                     }
-                    if ($rainIntensity == 1) {
+                    if ($deviceData->rainIntensity == 1) {
                         $valveStatus = '0|0';
                         $deviceData->valveStatus = $valveStatus;
                     }
